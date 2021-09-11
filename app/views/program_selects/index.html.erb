@@ -1,16 +1,28 @@
 <% if cookies.signed[:program].blank? %>
   <section class='Program_Select'>
-    <h1 class='Program_Select--Title'>番組を選択してください。</h1>
+    <h1 class='Program_Select--Title'>① 番組を選択してください。</h1>
 
     <%= form_with(url: program_selects_confirm_path, method: :post, local: true) do |form| %>
       <%= form.submit('BRIDGESTONE DRIVE TO THE FUTURE', class: 'Program_Select--Submit') %>
     <% end %>
   </section>
 <% elsif cookies.signed[:program]['name'] == 'JOAV_Sun_19:00' %>
-  <%= image_tag(@image_url) %>
+  <section class='Date_Select'>
+    <%= image_tag(@image_url) %>
 
-  <%= form_with(url: program_selects_path, method: :post, local: true) do |form| %>
-    <%= form.collection_select(:program, @programs, :id, :on_air ) %>
-    <%= form.submit('送信') %>
-  <% end %>
+    <h1 class='Date_Select--Title'>② 放送日を選択してください。</h1>
+    <%= form_with(url: program_selects_path, method: :post, local: true) do |form| %>
+      <p class='Date_Select__Box'>
+        <% @programs.each do |program| %>
+          <%= form.radio_button(:broadcast_date, program.id) %>
+          <%= program.on_air.strftime('%Y年 %m月 %d日') %> 放送分
+          <% if program.already_play == 1 %>
+            <span class='Date_Select__Box--Badge'>再生済</span>
+          <% end %><br />
+        <% end %>
+      </p>
+
+      <%= form.submit('再生を開始する。', class: 'Date_Select--Submit') %>
+    <% end %>
+  </section>
 <% end %>
