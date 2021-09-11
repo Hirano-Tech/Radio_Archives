@@ -1,0 +1,16 @@
+<% if cookies.signed[:program].blank? %>
+  <section class='Program_Select'>
+    <h1 class='Program_Select--Title'>番組を選択してください。</h1>
+
+    <%= form_with(url: program_selects_confirm_path, method: :post, local: true) do |form| %>
+      <%= form.submit('BRIDGESTONE DRIVE TO THE FUTURE', class: 'Program_Select--Submit') %>
+    <% end %>
+  </section>
+<% elsif cookies.signed[:program]['name'] == 'JOAV_Sun_19:00' %>
+  <%= image_tag(@image_url) %>
+
+  <%= form_with(url: program_selects_path, method: :post, local: true) do |form| %>
+    <%= form.collection_select(:program, @programs, :id, :on_air ) %>
+    <%= form.submit('送信') %>
+  <% end %>
+<% end %>
