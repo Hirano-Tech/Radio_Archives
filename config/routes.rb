@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources(:program_selects, only: [:index, :show, :create])
+  match('/program_selects/confirm', to: 'program_selects#confirm', via: :post)
+
+  # routes.rb で利用できる詳細については、https://guides.rubyonrails.org/routing.html をご覧ください。
 end
