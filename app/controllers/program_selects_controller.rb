@@ -1,4 +1,6 @@
 class ProgramSelectsController < ApplicationController
+  before_action :authenticate_user
+
   def index
     unless cookies.signed[:program].blank?
       @programs = Program.select(:id, :on_air, :already_play).readonly
@@ -48,6 +50,12 @@ class ProgramSelectsController < ApplicationController
   end
 
   private
+  def authenticate_user
+    if cookies.signed[:user].blank?
+      redirect_to(users_path)
+    end
+  end
+
   def program_params
     params.permit(:commit)
   end
