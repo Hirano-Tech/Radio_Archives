@@ -64,6 +64,18 @@
     display: flex;
       align-items: center;
 
+    .User_Login {
+      background-color: lightgray;
+      width: 75%;
+      // height: 100vh;
+      margin: 0 auto;
+
+      &--Title {
+        @include Program_Select_Title;
+        font-size: 1.0rem;
+      }
+    }
+
     .Program_Select {
       width: 75%;
       margin: 0 auto;

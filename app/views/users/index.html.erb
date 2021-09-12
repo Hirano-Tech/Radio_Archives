@@ -1,0 +1,12 @@
+<section class='User_Login'>
+  <h1 class='User_Login--Title'>① ログインしてください。</h1>
+
+  <%= form_with(url: users_path, model: @user, method: :post, local: true) do |form| %>
+    <%= form.label(:email, 'メールアドレス') %>：
+    <%= form.text_field(:email) %><br />
+
+    <%= form.label(:password, 'パスワード') %>：
+    <%= form.password_field(:password) %><br />
+    <%= form.submit('ログイン') %>
+  <% end %>
+</section>
