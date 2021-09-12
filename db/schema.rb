@@ -12,10 +12,16 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
+  create_table "categories", id: { type: :integer, limit: 1, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+  end
+
   create_table "programs", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "s3_key", null: false
     t.date "on_air", null: false
     t.integer "already_play", limit: 1, default: 0, null: false, unsigned: true
+    t.integer "category_id", limit: 1, null: false, unsigned: true
+    t.index ["category_id"], name: "category_id"
     t.index ["s3_key"], name: "s3_key", unique: true
   end
 
@@ -24,4 +30,5 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "password", null: false
   end
 
+  add_foreign_key "programs", "categories", name: "programs_ibfk_1"
 end
