@@ -15,8 +15,13 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "programs", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "s3_key", null: false
     t.date "on_air", null: false
-    t.binary "already_play", limit: 1, default: "b'0'", null: false
+    t.integer "already_play", limit: 1, default: 0, null: false, unsigned: true
     t.index ["s3_key"], name: "s3_key", unique: true
+  end
+
+  create_table "users", id: { type: :integer, limit: 1, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password", null: false
   end
 
 end
