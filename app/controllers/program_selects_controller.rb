@@ -6,7 +6,21 @@ class ProgramSelectsController < ApplicationController
       @programs = Program.select(:id, :on_air, :already_play).readonly
 
       aws_credential
-      @image_url = presign_url('images/BRIDGESTONE DRIVE TO THE FUTURE.webp', 60)
+      if cookies.signed[:program]['name'] == 'JOAV_Mon_18:30'
+
+      elsif cookies.signed[:program]['name'] == 'JOAV_Sun_19:00'
+        @image_url = presign_url('images/BRIDGESTONE DRIVE TO THE FUTURE.webp', 60)
+      end
+    end
+  end
+
+  def confirm
+    if params[:commit] == 'MIX MACHINE From. GROOVE LINE'
+      create_cookies_program('JOAV_Mon_18:30')
+      redirect_to piston2438_players_path
+    elsif params[:commit] == 'BRIDGESTONE DRIVE TO THE FUTURE'
+      create_cookies_program('JOAV_Sun_19:00')
+      redirect_to program_selects_path
     end
   end
 
@@ -32,54 +46,21 @@ class ProgramSelectsController < ApplicationController
     redirect_to program_select_path(id: date_params[:broadcast_date].to_i)
   end
 
-  def confirm
-    if program_params[:commit] == 'BRIDGESTONE DRIVE TO THE FUTURE'
-      cookies.signed[:program] = {
-        value: {
-          name: 'JOAV_Sun_19:00',
-        }, expires: 1.day
-      }
-    end
-
-    redirect_to program_selects_path
-  end
-
   def destroy_cookie
     cookies.signed[:program] = nil
     redirect_to program_selects_path
   end
 
   private
-  def authenticate_user
-    if cookies.signed[:user].blank?
-      redirect_to(users_path)
-    end
-  end
-
-  def program_params
-    params.permit(:commit)
+  def create_cookies_program(value)
+    cookies.signed[:program] = {
+      value: {
+        name: value,
+      }, expires: 1.day
+    }
   end
 
   def date_params
     params.permit(:broadcast_date)
-  end
-
-  def aws_credential
-    Aws.config.update({
-      region: Rails.application.credentials.AWS_S3[:Region],
-      credentials: Aws::Credentials.new(
-        Rails.application.credentials.AWS_S3[:Access_Key_ID],
-        Rails.application.credentials.AWS_S3[:Secret_Access_Key]
-      )
-    })
-  end
-
-  def presign_url(key, time)
-    Aws::S3::Presigner.new.presigned_url(
-      :get_object,
-      bucket: 'radio-archives',
-      key: key,
-      expires_in: time
-    )
   end
 end
