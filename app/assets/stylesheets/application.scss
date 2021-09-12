@@ -36,7 +36,7 @@
     width: 80%;
     font-size: 1.0rem;
     padding: 2px 8px;
-    margin: 0 auto;
+    margin: 0 auto 8px;
     border: solid 1px #1a0dab;
     border-radius: 6px;
     cursor: pointer;
@@ -67,7 +67,6 @@
     .User_Login {
       background-color: lightgray;
       width: 75%;
-      // height: 100vh;
       margin: 0 auto;
 
       &--Title {
@@ -85,6 +84,34 @@
         @include Program_Select_Title;
         font-size: 1.25rem;
       }
+    }
+
+    .Piston2438_DJ-MIX {
+      img { width: 100%; }
+      width: 75%;
+      margin: 0 auto;
+
+      &--Title {
+        @include Program_Select_Title;
+        font-size: 1.0rem;
+      }
+
+      .Piston2438_Form {
+        width: 75%;
+        margin: 0 auto;
+
+        &--Submit {
+          @include Form_Submit;
+          width: 100%;
+          margin: 8px 0 0 0;
+        }
+      }
+    }
+
+    .DJ-MIX_Player {
+      img { width: 100%; }
+      width: 75%;
+      margin: 0 auto;
     }
 
     .Date_Select {

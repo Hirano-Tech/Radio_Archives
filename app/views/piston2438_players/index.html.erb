@@ -1,0 +1,9 @@
+<section class='Piston2438_DJ-MIX'>
+  <%= image_tag(@image_url) %>
+  <h1 class='Piston2438_DJ-MIX--Title'>② 再生方法を選択してください。</h1>
+
+  <%= form_with(url: piston2438_players_path, class: 'Piston2438_Form', method: :post, local: true) do |form| %>
+    <%= form.radio_button(:play_method, '全曲シャッフル再生') %> 全曲シャッフル再生<br />
+    <%= form.submit('再生開始', class: 'Piston2438_Form--Submit') %>
+  <% end %>
+</section>

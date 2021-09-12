@@ -3,9 +3,14 @@
     <h1 class='Program_Select--Title'>① 番組を選択してください。</h1>
 
     <%= form_with(url: program_selects_confirm_path, method: :post, local: true) do |form| %>
+      <%= form.submit('MIX MACHINE From. GROOVE LINE', class: 'Program_Select--Submit') %>
       <%= form.submit('BRIDGESTONE DRIVE TO THE FUTURE', class: 'Program_Select--Submit') %>
     <% end %>
   </section>
+
+<% elsif cookies.signed[:program]['name'] == 'JOAV_Mon_18:30' %>
+
+
 <% elsif cookies.signed[:program]['name'] == 'JOAV_Sun_19:00' %>
   <section class='Date_Select'>
     <%= image_tag(@image_url) %>

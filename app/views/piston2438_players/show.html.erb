@@ -1,0 +1,4 @@
+<section class='DJ-MIX_Player'>
+  <%= image_tag(@image_url) %>
+  <%= audio_tag(@audio_url, onended: "location.href='/piston2438_players/#{session[:play_list].shift}';", autoplay: true, controls: true) %>
+</section>
