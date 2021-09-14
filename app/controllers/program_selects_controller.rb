@@ -1,5 +1,5 @@
 class ProgramSelectsController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_user!, only: :index
 
   def index
     unless cookies.signed[:program].blank?
@@ -52,15 +52,21 @@ class ProgramSelectsController < ApplicationController
   end
 
   private
-  def create_cookies_program(value)
-    cookies.signed[:program] = {
-      value: {
-        name: value,
-      }, expires: 1.day
-    }
-  end
+    def authenticate_user!
+      if cookies.signed[:user].blank?
+        redirect_to(users_path)
+      end
+    end
 
-  def date_params
-    params.permit(:broadcast_date)
-  end
+    def create_cookies_program(value)
+      cookies.signed[:program] = {
+        value: {
+          name: value,
+        }, expires: 1.day
+      }
+    end
+
+    def date_params
+      params.permit(:broadcast_date)
+    end
 end
