@@ -56,24 +56,54 @@
       top: -1px;
   }
 
+  header {
+    // background-color: lightgray;
+    width: 100vw;
+    height: 48px;
+
+    .Login_Note {
+      color: #ff0000;
+      font-weight: bold;
+      text-align: center;
+      position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .Header_Menu {
+      // background-color: lightgreen;
+      width: 25%;
+      margin: 0 8px 0 auto;
+      position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+
+      .Logout_Btn {
+        color: #6c757d;
+        border: solid 1px #6c757d;
+        border-radius: 8px;
+        padding: 4px 6px;
+        margin-left: 8px;
+
+        &:hover {
+          background-color: #6c757d;
+          color: #ffffff;
+          text-decoration: none;
+        }
+      }
+      }
+  }
+
   #Contents {
     width: 100vw;
       max-width: 576px;
-    height: 100vh;
+    height: calc(100vh - 48px);
     margin: 0 auto;
     display: flex;
       align-items: center;
 
-    .User_Login {
-      background-color: lightgray;
-      width: 75%;
-      margin: 0 auto;
-
-      &--Title {
-        @include Program_Select_Title;
-        font-size: 1.0rem;
-      }
-    }
+    @import 'user';
+    @import 'player';
 
     .Program_Select {
       width: 75%;
@@ -106,12 +136,6 @@
           margin: 8px 0 0 0;
         }
       }
-    }
-
-    .DJ-MIX_Player {
-      img { width: 100%; }
-      width: 75%;
-      margin: 0 auto;
     }
 
     .Date_Select {
