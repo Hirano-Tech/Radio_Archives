@@ -70,23 +70,27 @@
         transform: translateY(-50%);
     }
 
-    .Logout_Btn {
-      color: #6c757d;
-      border: solid 1px #6c757d;
-      border-radius: 8px;
-      padding: 4px 6px;
-      display: inline-block;
+    .Header_Menu {
+      width: 50%;
+      margin: 0 8px 0 auto;
       position: relative;
         top: 50%;
-        left: 99%;
-        transform: translateX(-100%) translateY(-50%);
+        transform: translateY(-50%);
 
-      &:hover {
-        background-color: #6c757d;
-        color: #ffffff;
-        text-decoration: none;
+      .Logout_Btn {
+        color: #6c757d;
+        border: solid 1px #6c757d;
+        border-radius: 8px;
+        padding: 4px 6px;
+        margin-left: 8px;
+
+        &:hover {
+          background-color: #6c757d;
+          color: #ffffff;
+          text-decoration: none;
+        }
       }
-    }
+      }
   }
 
   #Contents {
@@ -98,6 +102,7 @@
       align-items: center;
 
     @import 'user';
+    @import 'player';
 
     .Program_Select {
       width: 75%;
@@ -130,12 +135,6 @@
           margin: 8px 0 0 0;
         }
       }
-    }
-
-    .DJ-MIX_Player {
-      img { width: 100%; }
-      width: 75%;
-      margin: 0 auto;
     }
 
     .Date_Select {

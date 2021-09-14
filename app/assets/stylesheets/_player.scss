@@ -1,0 +1,50 @@
+.DJ-MIX_Player {
+  width: 75%;
+  margin: 0 auto;
+
+  &--Image { width: 100%; }
+  &--Audio { width: 100%; }
+  .Tag_Program {
+    background-color: #6c757d;
+    color: #ffffff;
+    width: 18.0em;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    padding: 2px 6px;
+    margin-bottom: 2px;
+  }
+
+  .Tag_Date {
+    width: 13.5em;
+    font-size: 0.8rem;
+    margin: 0 0 8px auto;
+  }
+
+  .Remain_Songs {
+    width: 8.0em;
+    font-size: 0.9rem;
+    margin: 4px 0 0 auto;
+
+    &--Big_Font {
+      color: #ff0000;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    &--Btn_Next {
+      color: #6c757d;
+      width: 5.5em;
+      font-size: 0.9rem;
+      border: solid 1px #6c757d;
+      border-radius: 8px;
+      padding: 2px 6px;
+      margin-left: 4px;
+
+      &:hover {
+        background-color: #6c757d;
+        color: #ffffff;
+        text-decoration: none;
+      }
+    }
+  }
+}
