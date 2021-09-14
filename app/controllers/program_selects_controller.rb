@@ -1,15 +1,16 @@
 class ProgramSelectsController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_user!, only: :index
 
   def index
     unless cookies.signed[:program].blank?
-      @programs = Program.select(:id, :on_air, :already_play).readonly
-
       aws_credential
       if cookies.signed[:program]['name'] == 'JOAV_Mon_18:30'
+        @image_url = presign_url('images/GROOVE LINE.webp', 60)
 
+        render template: 'piston2438_players/index'
       elsif cookies.signed[:program]['name'] == 'JOAV_Sun_19:00'
         @image_url = presign_url('images/BRIDGESTONE DRIVE TO THE FUTURE.webp', 60)
+        @programs = Program.select(:id, :on_air, :already_play).readonly
       end
     end
   end
@@ -46,21 +47,27 @@ class ProgramSelectsController < ApplicationController
     redirect_to program_select_path(id: date_params[:broadcast_date].to_i)
   end
 
-  def destroy_cookie
+  def destroy
     cookies.signed[:program] = nil
-    redirect_to program_selects_path
+    redirect_to root_path
   end
 
   private
-  def create_cookies_program(value)
-    cookies.signed[:program] = {
-      value: {
-        name: value,
-      }, expires: 1.day
-    }
-  end
+    def authenticate_user!
+      if cookies.signed[:user].blank?
+        redirect_to(users_path)
+      end
+    end
 
-  def date_params
-    params.permit(:broadcast_date)
-  end
+    def create_cookies_program(value)
+      cookies.signed[:program] = {
+        value: {
+          name: value,
+        }, expires: 1.day
+      }
+    end
+
+    def date_params
+      params.permit(:broadcast_date)
+    end
 end

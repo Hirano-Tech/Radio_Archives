@@ -2,11 +2,16 @@
   <h1 class='User_Login--Title'>① ログインしてください。</h1>
 
   <%= form_with(url: users_path, model: @user, method: :post, local: true) do |form| %>
-    <%= form.label(:email, 'メールアドレス') %>：
-    <%= form.text_field(:email) %><br />
+    <p>
+      ■ <%= form.label(:email, 'メールアドレス') %>
+      <%= form.text_field(:email, class: 'User_Login--Field') %>
+    </p>
 
-    <%= form.label(:password, 'パスワード') %>：
-    <%= form.password_field(:password) %><br />
-    <%= form.submit('ログイン') %>
+    <p>
+      ■ <%= form.label(:password, 'パスワード') %>
+      <%= form.password_field(:password, class: 'User_Login--Field') %>
+    </p>
+
+    <%= form.submit('ログイン', class: 'User_Login--Submit') %>
   <% end %>
 </section>
