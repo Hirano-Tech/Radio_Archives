@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :user_signed_in? , only: :index
+  before_action :user_signed_in?, only: :index
 
   def index
     @user = User.new
@@ -21,6 +21,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    cookies.signed[:user] = nil
+    redirect_to(users_path)
   end
 
   private
