@@ -16,7 +16,10 @@
       <% if request.fullpath == '/users' %>
         <aside class='Login_Note'>※ ログインしてください ※</aside>
       <% else %>
-        <%= link_to('ログアウト', user_path(id: cookies.signed[:user]['id']), class: 'Logout_Btn', method: :delete) %>
+        <div class='Header_Menu'>
+          <%= link_to('番組選択へ戻る', program_select_path(id: cookies.signed[:user]['id']), class: 'Logout_Btn', method: :delete) %>
+          <%= link_to('ログアウト', user_path(id: cookies.signed[:user]['id']), class: 'Logout_Btn', method: :delete) %>
+        </div>
       <% end %>
     </header>
     <section id='Contents'>
