@@ -12,6 +12,11 @@
   </head>
 
   <body>
+    <header>
+      <% if request.fullpath == '/users' %>
+        <aside class='Login_Note'>※ ログインしてください ※</aside>
+      <% end %>
+    </header>
     <section id='Contents'>
       <%= yield %>
     </section>

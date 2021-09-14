@@ -1,0 +1,35 @@
+.User_Login {
+  width: 75%;
+  margin: 0 auto;
+
+  &--Title {
+    @include Program_Select_Title;
+    font-size: 1.0rem;
+  }
+
+  &--Field {
+    width: 75%;
+    height: 1.0rem;
+    border: solid 1px rgba(#333333, 0.5);
+    border-radius: 8px;
+    padding: 4px 6px;
+    margin: 4px 0 0 1.25em;
+  }
+
+  &--Submit {
+    background-color: #ffffff;
+    color: #1a0dab;
+    width: 78.5%;
+    font-size: 1.0rem;
+    padding: 4px 6px;
+    margin-left: 1.25em;
+    border: solid 1px #1a0dab;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #1a0dab;
+      color: #ffffff;
+    }
+  }
+}
