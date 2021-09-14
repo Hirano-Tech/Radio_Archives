@@ -1,24 +1,21 @@
-# README
+## 🖥　① 技術仕様（ローカル環境）
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- **Ruby** Version 3.0.2
+- **Ruby on Rails** Version 6.1.4.1
+- **MySQL** Version 8.0.26
+- **Docker** Version 20.10.8
 
-Things you may want to cover:
+## 🌏　② 技術仕様（本番環境）
 
-* Ruby version
+- **Elastic Compute Cloud**
+  - Region：アジア・パシフィック（ムンバイ）
+  - インスタンスタイプ：t4g.nano
 
-* System dependencies
+- **Relational Database Service**
+  - Region：米国西部（オレゴン）
+  - インスタンスタイプ：db.t2.micro
 
-* Configuration
+- **Simple Storage Service**
+- **Virtual Private Cloud**
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+<img src='https://user-images.githubusercontent.com/63486456/134319412-a1c9fe45-2907-435a-a45f-23173c5141c8.png' width='50%' />

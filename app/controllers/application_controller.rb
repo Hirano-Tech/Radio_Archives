@@ -1,7 +1,13 @@
 class ApplicationController < ActionController::Base
-  def authenticate_user
+  def authenticate_user!
     if cookies.signed[:user].blank?
-      redirect_to(users_path)
+      redirect_to(sessions_path)
+    end
+  end
+
+  def user_signed_in?
+    if cookies.signed[:user].present?
+      redirect_to(root_path)
     end
   end
 

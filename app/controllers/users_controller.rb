@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :user_signed_in?, only: :index
+
   def index
     @user = User.new
   end
@@ -9,20 +11,28 @@ class UsersController < ApplicationController
       cookies.signed[:user] = {
         value: {
           id: user.id,
-        }, expires: 1.day
+        }, expires: 7.days
       }
 
-      redirect_to(program_selects_path)
+      redirect_to(root_path)
     else
       render(action: 'index')
     end
   end
 
   def destroy
+    cookies.signed[:user] = nil
+    redirect_to(users_path)
   end
 
   private
-  def user_params
-    params.require(:user).permit(:email, :password)
-  end
+    def user_signed_in?
+      unless cookies.signed[:user].blank?
+        redirect_to(root_path)
+      end
+    end
+
+    def user_params
+      params.require(:user).permit(:email, :password)
+    end
 end
