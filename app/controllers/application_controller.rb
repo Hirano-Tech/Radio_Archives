@@ -1,10 +1,4 @@
 class ApplicationController < ActionController::Base
-  def authenticate_user
-    if cookies.signed[:user].blank?
-      redirect_to(users_path)
-    end
-  end
-
   def aws_credential
     Aws.config.update({
       region: Rails.application.credentials.AWS_S3[:Region],
