@@ -1,0 +1,19 @@
+<section class='User_Login'>
+  <h1 class='User_Login--Title'>① ログインしてください。</h1>
+
+  <%= form_with(url: sessions_path, model: @user, method: :post, local: true) do |form| %>
+    <p>
+      ■ <%= form.label(:email, 'メールアドレス') %>
+      <%= form.text_field(:email, class: 'User_Login--Field') %>
+    </p>
+
+    <p>
+      ■ <%= form.label(:password, 'パスワード') %>
+      <%= form.password_field(:password, class: 'User_Login--Field') %>
+    </p>
+
+    <%= form.submit('ログイン', class: 'User_Login--Submit') %>
+  <% end %>
+
+  <%= link_to('※ 採用ご担当者様はこちら…', new_registration_path, class: 'User_Login--Recruit') %>
+</section>
