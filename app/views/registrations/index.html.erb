@@ -1,0 +1,20 @@
+<section class='User_Confirm'>
+  <h1 class='User_Confirm--Title'>
+    ユーザー情報 登録情報 確認<br />
+    <span class='User_Confirm--Title--Note'>※ データベースに登録されません。 ※</span>
+  </h1>
+
+  <p class='User_Confirm__Field'>
+    ■ メールアドレス<br />
+    <span class='User_Confirm__Field--Encrypt'><%= @encrypt_email %></span><br />
+    <span class='User_Confirm__Field--Plain'>※ 入力内容：<%= @email %></span>
+  </p>
+
+  <p class='User_Confirm__Field'>
+    ■ パスワード：<br />
+    <span class='User_Confirm__Field--Encrypt'><%= @encrypt_password %></span><br />
+    <span class='User_Confirm__Field--Plain'>※ 入力内容：<%= @password %></span>
+  </p>
+
+  <%= link_to('ログインページへ戻る', user_registrations_destroy_path, class: 'User_Confirm--Submit', method: :delete) %>
+</section>
