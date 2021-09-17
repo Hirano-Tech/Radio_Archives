@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "users", id: { type: :integer, limit: 1, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "password", null: false
+    t.string "encrypt_email", null: false
+    t.string "encrypt_password", null: false
+    t.index ["encrypt_email"], name: "encrypt_email", unique: true
   end
 
   add_foreign_key "programs", "categories", name: "programs_ibfk_1"
