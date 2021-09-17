@@ -53,7 +53,11 @@ class ProgramSelectsController < ApplicationController
   end
 
   private
-
+    def authenticate_user!
+      if cookies.signed[:user].blank?
+        redirect_to(sessions_path)
+      end
+    end
 
     def create_cookies_program(value)
       cookies.signed[:program] = {
