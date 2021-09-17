@@ -38,7 +38,7 @@ class Piston2438PlayersController < ApplicationController
   private
     def authenticate_user!
       if cookies.signed[:user].blank?
-        redirect_to(users_path)
+        redirect_to(sessions_path)
       end
     end
 end
