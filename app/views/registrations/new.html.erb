@@ -1,0 +1,20 @@
+<section class='User_Regist'>
+  <h1 class='User_Regist--Title'>
+    ユーザー情報 新規登録フォーム<br />
+    <span class='User_Regist--Title--Note'>※ データベースに登録されません。 ※</span>
+  </h1>
+
+  <%= form_with(url: registrations_path, model: @user, method: :post, local: true) do |form| %>
+    <p>
+      ■ <%= form.label(:email, 'メールアドレス') %>
+      <%= form.email_field(:email, class: 'User_Regist--Field', required: true, autocomplete: 'email', autocorrect: 'off', autocapitalize: 'off') %>
+    </p>
+
+    <p>
+      ■ <%= form.label(:password, 'パスワード') %>
+      <%= form.password_field(:password, class: 'User_Regist--Field', required: true, inputmode: 'text', autocomplete: 'off', autocorrect: 'off', autocapitalize: 'off') %>
+    </p>
+
+    <%= form.submit('登録情報を確認する', class: 'User_Regist--Submit') %>
+  <% end %>
+</section>

@@ -13,12 +13,19 @@
 
   <body>
     <header>
-      <% if request.fullpath == '/users' %>
+      <% if request.fullpath == '/user/sessions' %>
         <aside class='Login_Note'>※ ログインしてください ※</aside>
       <% else %>
         <div class='Header_Menu'>
-          <%= link_to('番組選択へ戻る', program_select_path(id: cookies.signed[:user]['id']), class: 'Logout_Btn', method: :delete) %>
-          <%= link_to('ログアウト', user_path(id: cookies.signed[:user]['id']), class: 'Logout_Btn', method: :delete) %>
+          <% if request.fullpath == '/' %>
+            <%= link_to('ログアウト', session_path(id: cookies.signed[:user]['id']), class: 'Logout_Btn', method: :delete) %>
+          <% elsif request.fullpath == '/user/registrations/new' %>
+            <%= link_to('ログイン', sessions_path, class: 'Logout_Btn') %>
+          <% elsif request.fullpath == '/user/registrations' %>
+            <%= link_to('ログイン', user_registrations_destroy_path, class: 'Logout_Btn', method: :delete) %>
+          <% else %>
+            <%= link_to('番組選択へ戻る', program_select_path(id: cookies.signed[:user]['id']), class: 'Logout_Btn', method: :delete) %>
+          <% end %>
         </div>
       <% end %>
     </header>
