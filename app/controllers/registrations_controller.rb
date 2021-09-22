@@ -1,48 +1,44 @@
 class RegistrationsController < ApplicationController
   before_action :user_signed_in?, only: [:index, :new]
-  before_action :cookie_hold?, only: :index
 
   def index
-    @encrypt_email = cookies.signed[:user_confirm]['email']
-    @encrypt_password = cookies.signed[:user_confirm]['password']
+    if cookies.signed[:regist_user].present?
+      @encrypt_email = cookies.signed[:regist_user]['encrypt_email']
+      @encrypt_password = cookies.signed[:regist_user]['encrypt_password']
 
-    /@/ =~ @encrypt_email
-      encrypt_email_account = $`
-      email_domain = $'
+      encrypt_email_address = User.get_email_account(@encrypt_email)
 
-    secret_key = Rails.application.credentials.User[:Secret_Key]
-    email_account = User.connection.select_all("SELECT convert( AES_DECRYPT( UNHEX('#{encrypt_email_account}'), '#{secret_key}') USING 'utf8mb4')").rows[0][0]
-    @email = "#{email_account}@#{email_domain}"
-    @password = User.connection.select_all("SELECT convert( AES_DECRYPT( UNHEX('#{@encrypt_password}'), '#{secret_key}') USING 'utf8mb4')").rows[0][0]
+      decrypt_email_account = User.decrypt_email(encrypt_email_address[:account])
+      @email = "#{decrypt_email_account}@#{encrypt_email_address[:domain]}"
+      @password = User.decrypt_password(@encrypt_password)
+    else
+      redirect_to(new_registration_path)
+    end
   end
 
   def new
-    @user = User.new
+    cookies.delete(:regist_user)
   end
 
   def create
-    email = user_params[:email].downcase
-      /@/ =~ email
-      email_account = $`
-      email_domain = $'
+    email_address = User.get_email_account(user_params[:email].downcase)
 
-    secret_key = Rails.application.credentials.User[:Secret_Key]
-    encrypt_email_account = User.connection.select_all("SELECT HEX(AES_ENCRYPT('#{email_account}', '#{secret_key}'));").rows[0][0]
-    encrypt_email = "#{encrypt_email_account}@#{email_domain}"
-    encrypt_password = User.connection.select_all("SELECT HEX(AES_ENCRYPT('#{user_params[:password]}', '#{secret_key}'));").rows[0][0]
+    encrypt_email_account = User.encrypt_email(email_address[:account])
+    encrypt_email = "#{encrypt_email_account}@#{email_address[:domain]}"
+    encrypt_password = User.encrypt_password(user_params[:password])
 
-    cookies.signed[:user_confirm] = {
+    cookies.signed[:regist_user] = {
       value: {
-        email: encrypt_email,
-        password: encrypt_password
-      }, expires: 1.day
+        encrypt_email: encrypt_email,
+        encrypt_password: encrypt_password
+      }, expires: 5.minutes
     }
 
     redirect_to(registrations_path)
   end
 
   def destroy
-    cookies.signed[:user_confirm] = nil
+    cookies.delete(:regist_user)
     redirect_to(sessions_path)
   end
 
@@ -53,13 +49,7 @@ class RegistrationsController < ApplicationController
       end
     end
 
-    def cookie_hold?
-      if cookies.signed[:user_confirm].blank?
-        redirect_to(new_registration_path)
-      end
-    end
-
     def user_params
-      params.require(:user).permit(:email, :password)
+      params.permit(:email, :password)
     end
 end
