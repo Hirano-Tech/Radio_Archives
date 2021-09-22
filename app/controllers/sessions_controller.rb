@@ -2,47 +2,38 @@ class SessionsController < ApplicationController
   before_action :user_signed_in?, only: :index
 
   def index
-    @user = User.new
   end
 
   def create
-    email = user_params[:email].downcase
-      /@/ =~ email
-      email_account = $`
-      email_domain = $'
+    email_address = User.get_email_account(user_params[:email].downcase)
 
-    secret_key = Rails.application.credentials.User[:Secret_Key]
-    encrypt_email_account = User.connection.select_all("SELECT HEX(AES_ENCRYPT('#{email_account}', '#{secret_key}'));").rows[0][0]
-    encrypt_email = "#{encrypt_email_account}@#{email_domain}"
-    encrypt_password = User.connection.select_all("SELECT HEX(AES_ENCRYPT('#{user_params[:password]}', '#{secret_key}'));").rows[0][0]
+    encrypt_email_account = User.encrypt_email(email_address[:account])
+    encrypt_email = "#{encrypt_email_account}@#{email_address[:domain]}"
+    encrypt_password = User.encrypt_password(user_params[:password])
 
-    user = User.find_by(encrypt_email: encrypt_email)
-    if user.blank? || encrypt_password != user.encrypt_password
-      render(action: 'new')
+    login_user = User.new(encrypt_email: encrypt_email, encrypt_password: encrypt_password)
+    user = login_user.user_sign_in
+
+    if user.blank?
+      redirect_to(sessions_path)
     else
       cookies.signed[:user] = {
         value: {
           id: user.id,
-        }, expires: 3.days
+        }, expires: 3.day
       }
 
-      redirect_to(sessions_path)
+      redirect_to(root_path)
     end
   end
 
   def destroy
-    cookies.signed[:user] = nil
+    cookies.delete(:user)
     redirect_to(sessions_path)
   end
 
   private
-    def user_signed_in?
-      unless cookies.signed[:user].blank?
-        redirect_to(root_path)
-      end
-    end
-
     def user_params
-      params.require(:user).permit(:email, :password)
+      params.permit(:email, :password)
     end
 end

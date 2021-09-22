@@ -1,31 +1,14 @@
 <section class='Radio_Player'>
-  <section class='Radio_Player__Menu'>
-    <p class='Radio_Player__Menu__Date'>
-      <% if @program.already_play == 0 %>
-        <span class='Radio_Player__Menu__Date--Badge'>未聴取</span>
-        <%= @program.on_air.strftime('%Y年 %m月 %d日') %>
-      <% elsif @program.already_play == 1 %>
-        <span class='Radio_Player__Menu__Date--Badge'>再生済</span>
-        <%= @program.on_air.strftime('%Y年 %m月 %d日') %>
-      <% end %>
-    </p>
+  <p class='Tag_Program'><%= @program.category.name %></p>
+  <%= image_tag(@image_url, class: '') %>
+    <p class='Tag_Date'>
+    ■ 放送日：<%= @program.on_air.strftime('%Y年 %m月 %d日') %>
+  </p>
 
-    <% if @program.already_play == 0 %>
-      <%= form_with(url: "/program_selects/#{params[:id].to_i}/play", class: 'Radio_Player__Menu__Played', method: :post, local: true) do |form| %>
-        <%= form.submit('再生済み', class: 'Radio_Player__Menu__Played--Submit') %>
-      <% end %>
-    <% elsif @program.already_play == 1 %>
-      <%= form_with(url: "/program_selects/#{params[:id].to_i}/play", class: 'Radio_Player__Menu__Played', method: :delete, local: true) do |form| %>
-        <%= form.submit('未再生に戻す', class: 'Radio_Player__Menu__Played--Submit') %>
-      <% end %>
-    <% end %>
-  </section>
+  <%= audio_tag(@audio_url, onended: "location.href='/program_selects/#{session[:play_lists].shift}';", class: '', autoplay: true, controls: true) %>
 
-  <%= image_tag(@image_url) %>
-  <%= audio_tag(@audio_url, autoplay: false, controls: true) %>
-
-  <section class='Radio_Player__Menu-Link'>
-    <%= link_to('番組選択に戻る', program_selects_destroy_path, method: :delete, class: 'Radio_Player__Menu-Link--Button') %>
-    <%= link_to('放送日選択に戻る', program_selects_path, class: 'Radio_Player__Menu-Link--Button') %>
-  </section>
+  <p class='Remain_Songs'>
+    残り <span class='Remain_Songs--Big_Font'><%= session[:play_lists].length %></span>曲です。
+    <%#= link_to('次の曲へ ▶', piston2438_player_path(id: session[:play_list][0]), class: 'Remain_Songs--Btn_Next') %>
+  </p>
 </section>
