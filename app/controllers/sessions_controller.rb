@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
       cookies.signed[:user] = {
         value: {
           id: user.id,
-        }, expires: 1.day
+        }, expires: 3.day
       }
 
       redirect_to(root_path)
@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    cookies.signed[:user] = nil
+    cookies.delete(:user)
     redirect_to(sessions_path)
   end
 
