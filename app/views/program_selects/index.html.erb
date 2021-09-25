@@ -1,66 +1,11 @@
 <section class='Program_Select'>
   <% if request.query_string.include?('MIX-MACHINE') %>
-    <%= image_tag(@image_url) %>
+    <%= image_tag('https://d1tr04ubbr03km.cloudfront.net/images/GROOVE LINE.webp') %>
 
-    <%= form_with(url: program_selects_path, class: 'Piston2438', method: :post, local: true) do |form| %>
-      <p class='Piston2438--Select_Text'>
-        <%= form.radio_button(:play_method, '全曲シャッフル再生') %>
-        全曲シャッフル再生
-      </p>
-
-      <p class='Piston2438--Select_Text'>
-        <%= form.radio_button(:play_method, '期間指定') %> 放送日を指定して再生<br />
-          <%= form.date_select(:start_date, use_month_numbers: true, use_two_digit_numbers: true, date_separator: '-', start_year: 2020, end_year: 2021, discard_day: true) %>〜
-          <%= form.date_select(:end_date, use_month_numbers: true, use_two_digit_numbers: true, date_separator: '-', start_year: 2020, end_year: 2021, discard_day: true) %>
-      </p>
-
-      <%= form.submit('再生開始', class: 'Piston2438--Submit') %>
-    <% end %>
+    <h1 class='Program_Select--Title'>② 再生方法を選択してください。</h1>
+    <%= link_to('全曲 シャッフル再生', players_path(q: 'shuffle_play'), class: 'Program_Select--Link') %>
   <% else %>
     <h1 class='Program_Select--Title'>① 番組を選択してください。</h1>
-    <%= link_to('MIX MACHINE From. GROOVE LINE', program_selects_path(p: 'JOAV_MIX-MACHINE'), class: 'Program_Select--Link') %>
+    <%= link_to('MIX MACHINE From. GROOVE LINE', program_selects_path(q: 'JOAV_MIX-MACHINE'), class: 'Program_Select--Link') %>
   <% end %>
 </section>
-
-
-
-
-
-
-
-
-
-
-<% if cookies.signed[:program].blank? %>
-  <!-- <section class='Program_Select'>
-    <h1 class='Program_Select--Title'>① 番組を選択してください。</h1>
-
-    <%#= form_with(url: program_selects_confirm_path, method: :post, local: true) do |form| %>
-      <%#= form.submit('MIX MACHINE From. GROOVE LINE', class: 'Program_Select--Submit') %>
-      <%#= form.submit('BRIDGESTONE DRIVE TO THE FUTURE', class: 'Program_Select--Submit') %>
-    <%# end %>
-  </section> -->
-
-<% elsif cookies.signed[:program]['name'] == 'JOAV_Mon_18:30' %>
-
-
-<% elsif cookies.signed[:program]['name'] == 'JOAV_Sun_19:00' %>
-  <section class='Date_Select'>
-    <%= image_tag(@image_url) %>
-
-    <h1 class='Date_Select--Title'>② 放送日を選択してください。</h1>
-    <%= form_with(url: program_selects_path, method: :post, local: true) do |form| %>
-      <p class='Date_Select__Box'>
-        <% @programs.each do |program| %>
-          <%= form.radio_button(:broadcast_date, program.id) %>
-          <%= program.on_air.strftime('%Y年 %m月 %d日') %> 放送分
-          <% if program.already_play == 1 %>
-            <span class='Date_Select__Box--Badge'>再生済</span>
-          <% end %><br />
-        <% end %>
-      </p>
-
-      <%= form.submit('再生を開始する。', class: 'Date_Select--Submit') %>
-    <% end %>
-  </section>
-<% end %>
