@@ -43,12 +43,6 @@ class RegistrationsController < ApplicationController
   end
 
   private
-    def user_signed_in?
-      unless cookies.signed[:user].blank?
-        redirect_to(root_path)
-      end
-    end
-
     def user_params
       params.permit(:email, :password)
     end
