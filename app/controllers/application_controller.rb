@@ -1,32 +1,21 @@
 class ApplicationController < ActionController::Base
   def authenticate_user!
-    if cookies.signed[:user].blank?
+    if cookies.signed[:user].blank? || User.new(id: cookies.signed[:user]['id']).signed_in?.blank?
       redirect_to(sessions_path)
     end
   end
 
   def user_signed_in?
-    if cookies.signed[:user].present?
+    if User.new(id: cookies.signed[:user]['id']).signed_in?.present?
       redirect_to(root_path)
     end
   end
 
   def aws_credential
-    Aws.config.update({
+    Aws::S3::Client.new(
       region: Rails.application.credentials.AWS_S3[:Region],
-      credentials: Aws::Credentials.new(
-        Rails.application.credentials.AWS_S3[:Access_Key_ID],
-        Rails.application.credentials.AWS_S3[:Secret_Access_Key]
-      )
-    })
-  end
-
-  def presign_url(key, time)
-    Aws::S3::Presigner.new.presigned_url(
-      :get_object,
-      bucket: 'radio-archives',
-      key: key,
-      expires_in: time
+      access_key_id: Rails.application.credentials.AWS_S3[:Access_Key_ID],
+      secret_access_key: Rails.application.credentials.AWS_S3[:Secret_Access_Key]
     )
   end
 end

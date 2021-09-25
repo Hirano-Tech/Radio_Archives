@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   self.table_name = 'users'
 
+  def signed_in?
+    return User.readonly.find(id)
+  end
+
   def self.get_email_account(email_address)
     /@/ =~ email_address
     return {account: $`, domain: $'}
