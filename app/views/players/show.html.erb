@@ -1,9 +1,10 @@
 <section class='Radio_Player'>
   <p class='Tag_Program'>MIX MACHINE From. GROOVE LINE</p>
-  <%= image_tag('https://d1tr04ubbr03km.cloudfront.net/images/GROOVE LINE.webp') %>
-    <p class='Tag_Date'>
+  <p class='Radio_Player__Image'>
+    <%= image_tag('https://d1tr04ubbr03km.cloudfront.net/images/GROOVE LINE.webp') %>
     ■ 放送日：<%= @date %>
   </p>
 
-  <%= audio_tag(@audio_url, onended: "location.href='/players?q=shuffle_play';", autoplay: true, controls: true) %>
+  <%= audio_tag(@audio_url, onended: "location.href='/players?q=shuffle_play';", autoplay: false, controls: true) %>
+  <%= link_to('次曲', players_path(q: 'shuffle_play'), class: 'Radio_Player--Next_Btn') %>
 </section>

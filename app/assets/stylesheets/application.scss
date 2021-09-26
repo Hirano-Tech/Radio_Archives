@@ -30,24 +30,6 @@
     }
   }
 
-  @mixin Form_Submit {
-    background-color: #ffffff;
-    color: #1a0dab;
-    width: 80%;
-    font-size: 1.0rem;
-    padding: 2px 8px;
-    margin: 0 auto 8px;
-    border: solid 1px #1a0dab;
-    border-radius: 6px;
-    cursor: pointer;
-    display: block;
-
-    &:hover {
-      background-color: #1a0dab;
-      color: #ffffff;
-    }
-  }
-
   @mixin program_tag {
     background-color: rgba(#333333, 0.75);
     color: #ffffff;
@@ -101,7 +83,6 @@
       align-items: center;
 
     @import 'user';
-    @import 'player';
 
     .Program_Select {
       width: 90%;
@@ -165,14 +146,9 @@
     }
 
     .Radio_Player {
-      width: 80%;
-      margin: 0 auto;
-
       audio { width: 100%; }
-      img {
-        width: 100%;
-        object-fit: contain;
-      }
+      width: 90%;
+      margin: 0 auto;
 
       .Tag_Program {
         background-color: #6c757d;
@@ -181,84 +157,35 @@
         font-size: 0.8rem;
         border-radius: 8px;
         padding: 2px 6px;
-        margin-bottom: 2px;
+        margin-bottom: 0;
       }
 
-      .Tag_Date {
-        width: 13.5em;
-        font-size: 0.8rem;
-        margin: 0 0 8px auto;
-      }
-      .Remain_Songs {
-        width: 9.0em;
-        font-size: 0.9rem;
-        margin: 4px 0 0 auto;
-
-        &--Big_Font {
-          color: #ff0000;
-          font-size: 1.3rem;
-          font-weight: bold;
-        }
-
-        &--Btn_Next {
-          color: #6c757d;
-          width: 5.5em;
-          font-size: 0.9rem;
-          border: solid 1px #6c757d;
-          border-radius: 8px;
-          padding: 2px 6px;
-          margin-left: 4px;
-
-          &:hover {
-            background-color: #6c757d;
-            color: #ffffff;
-            text-decoration: none;
-          }
-        }
-      }
-    }
-
-    .Piston2438_DJ-MIX {
-      img { width: 100%; }
-      width: 75%;
-      margin: 0 auto;
-
-      &--Title {
-        @include Program_Select_Title;
-        font-size: 1.0rem;
-      }
-
-      .Piston2438_Form {
+      &__Image {
         width: 75%;
-        margin: 0 auto;
+        font-size: 0.8rem;
+        text-align: right;
+        margin: 8px auto;
 
-        &--Submit {
-          @include Form_Submit;
+        img {
           width: 100%;
-          margin: 8px 0 0 0;
+          object-fit: contain;
         }
       }
-    }
 
-    .Date_Select {
-      width: 75%;
-      line-height: 1.5em;
-      margin: 0 auto;
+      &--Next_Btn {
+        width: 2.0em;
+        color: #007bff;
+        border: solid 1px #007bff;
+        border-radius: 8px;
+        padding: 2px 6px;
+        margin: 4px calc(25% / 2) 0 auto;
+        cursor: pointer;
+        display: block;
 
-      img { width: 100%; }
-      &--Submit { @include Form_Submit; }
-      &--Title {
-        @include Program_Select_Title;
-        font-size: 1.0rem;
-      }
-
-      &__Box {
-        text-align: center;
-
-        &--Badge {
-          @include program_tag;
-          font-size: 0.7rem;
-          padding: 0 4px  1px 4px;
+        &:hover {
+          background-color: #007bff;
+          color: #ffffff;
+          text-decoration: none;
         }
       }
     }
