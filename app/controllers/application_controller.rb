@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_signed_in?
-    if User.new(id: cookies.signed[:user]['id']).signed_in?.present?
+    if cookies.signed[:user].present? && User.new(id: cookies.signed[:user]['id']).signed_in?.present?
       redirect_to(root_path)
     end
   end
