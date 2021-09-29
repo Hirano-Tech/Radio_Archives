@@ -40,7 +40,9 @@
 
   header {
     width: 100vw;
+      max-width: 576px;
     height: 48px;
+    margin: 0 auto;
 
     .Login_Note {
       color: #ff0000;
@@ -52,17 +54,18 @@
     }
 
     .Header_Menu {
-      width: 40%;
-      margin: 0 8px 0 auto;
+      display: flex;
+        justify-content: flex-end;
       position: relative;
         top: 50%;
         transform: translateY(-50%);
 
-      .Logout_Btn {
+      &--Link {
         color: #6c757d;
+        font-size: 0.9rem;
         border: solid 1px #6c757d;
         border-radius: 8px;
-        padding: 4px 6px;
+        padding: 2px 8px;
         margin-left: 8px;
 
         &:hover {
@@ -71,7 +74,7 @@
           text-decoration: none;
         }
       }
-      }
+    }
   }
 
   #Contents {
@@ -85,19 +88,17 @@
     @import 'user';
 
     .Program_Select {
-      width: 90%;
-      margin: 0 auto;
+      width: 100%;
 
       &--Title {
         @include Program_Select_Title;
         font-size: 1.25rem;
       }
 
-      &--Link {
-        width: 90%;
+      @mixin Program_Select_Link($width) {
+        width: $width;
         text-align: center;
         padding: 2px 8px;
-        margin: 0 auto;
         border: solid 1px #1a0dab;
         border-radius: 6px;
         cursor: pointer;
@@ -110,11 +111,42 @@
         }
       }
 
+      &--Link {
+        @include Program_Select_Link(90%);
+        margin: 0 auto 8px;
+      }
+
+
+
       img {
         width: 90%;
         object-fit: contain;
         margin: 0 auto;
         display: block;
+      }
+
+      &__Date {
+        width: 60%;
+        margin: 0 auto 4px;
+        display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+        &--Link {
+          @include Program_Select_Link(75%);
+        }
+
+        &--Badge {
+          background-color: #6c757d;
+          color: #ffffff;
+          width: 3.0em;
+          height: 1.1em;
+          font-size: 0.8rem;
+          border-radius: 8px;
+          padding: 2px 6px;
+          margin-top: 2px;
+          display: block;
+        }
       }
 
       .Piston2438 {
@@ -150,14 +182,28 @@
       width: 90%;
       margin: 0 auto;
 
-      .Tag_Program {
+      @mixin Tag_Program($width) {
         background-color: #6c757d;
         color: #ffffff;
-        width: 18.0em;
+        width: $width;
         font-size: 0.8rem;
         border-radius: 8px;
         padding: 2px 6px;
-        margin-bottom: 0;
+        margin: 0;
+      }
+
+      .Tag_Group {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .Tag_Program {
+        &--MIX-MACHINE { @include Tag_Program(18.0em); }
+        &--Already { @include Tag_Program(3.0em); }
+        &--FAV-FOUR {
+          @include Tag_Program(5.0em);
+          margin: 0 8px 0 0;
+        }
       }
 
       &__Image {
@@ -172,10 +218,10 @@
         }
       }
 
-      &--Next_Btn {
-        width: 2.0em;
-        color: #007bff;
-        border: solid 1px #007bff;
+      @mixin Next_Btn($width, $color) {
+        width: $width;
+        color: $color;
+        border: solid 1px $color;
         border-radius: 8px;
         padding: 2px 6px;
         margin: 4px calc(25% / 2) 0 auto;
@@ -183,11 +229,15 @@
         display: block;
 
         &:hover {
-          background-color: #007bff;
+          background-color: $color;
           color: #ffffff;
           text-decoration: none;
         }
       }
+
+      &--Next_Btn { @include Next_Btn(2.0em, #007bff); }
+      &--Already_Falth-Btn { @include Next_Btn(6.0em, #28a745); }
+      &--Already_True-Btn { @include Next_Btn(6.0em, #6c757d); }
     }
   }
 }
