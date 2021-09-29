@@ -1,12 +1,14 @@
 class ApplicationController < ActionController::Base
   def authenticate_user!
-    if cookies.signed[:user].blank? || User.new(id: cookies.signed[:user]['id']).signed_in?.blank?
+    if cookies.signed[:user].present?
+      @user = User.new(id: cookies.signed[:user]['id']).signed_in?
+    elsif cookies.signed[:user].blank?
       redirect_to(sessions_path)
     end
   end
 
   def user_signed_in?
-    if User.new(id: cookies.signed[:user]['id']).signed_in?.present?
+    if cookies.signed[:user].present? && User.new(id: cookies.signed[:user]['id']).signed_in?.present?
       redirect_to(root_path)
     end
   end

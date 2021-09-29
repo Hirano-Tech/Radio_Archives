@@ -1,9 +1,32 @@
 <section class='Radio_Player'>
-  <p class='Tag_Program'>MIX MACHINE From. GROOVE LINE</p>
-  <%= image_tag('https://d1tr04ubbr03km.cloudfront.net/images/GROOVE LINE.webp') %>
-    <p class='Tag_Date'>
-    ■ 放送日：<%= @date %>
-  </p>
+  <% if params[:program] == 'JOAV_MIX-MACHINE' %>
+    <p class='Tag_Program--MIX-MACHINE'>MIX MACHINE From. GROOVE LINE</p>
+    <p class='Radio_Player__Image'>
+      <%= image_tag('https://d1tr04ubbr03km.cloudfront.net/Images/JOAV_GROOVE-LINE.webp') %>
+      ■ 放送日：<%= @date %>
+    </p>
 
-  <%= audio_tag(@audio_url, onended: "location.href='/players?q=shuffle_play';", autoplay: true, controls: true) %>
+    <%= audio_tag(@audio_url, onended: "location.href='/players?q=shuffle_play';", autoplay: false, controls: true) %>
+    <%= link_to('次曲', players_path(program: 'JOAV_MIX-MACHINE', play: 'shuffle_play'), class: 'Radio_Player--Next_Btn') %>
+
+  <% elsif params[:program] == 'JODV_FAV-FOUR' %>
+    <div class='Tag_Group'>
+      <p class='Tag_Program--FAV-FOUR'>FAV FOUR</p>
+      <% if @program.already_play == 1 %>
+        <p class='Tag_Program--Already'>再生済</p>
+      <% end %>
+    </div>
+
+    <p class='Radio_Player__Image'>
+      <%= image_tag('https://d1tr04ubbr03km.cloudfront.net/Images/JODV_FAV-FOUR.webp') %>
+      ■ 放送日：<%= @date %>
+    </p>
+
+    <%= audio_tag(@audio_url, autoplay: false, controls: true) %>
+    <% if @program.already_play == 0 %>
+      <%= link_to('再生済にする', players_path(program: 'JODV_FAV-FOUR', key: params[:key], already: @program.already_play), class: 'Radio_Player--Already_Falth-Btn', method: :patch) %>
+    <% elsif @program.already_play == 1 %>
+      <%= link_to('未再生にする', players_path(program: 'JODV_FAV-FOUR', key: params[:key], already: @program.already_play), class: 'Radio_Player--Already_True-Btn', method: :patch) %>
+    <% end %>
+  <% end %>
 </section>

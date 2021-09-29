@@ -18,14 +18,15 @@
         <aside class='Login_Note'>※ ログインしてください ※</aside>
       <% else %>
         <div class='Header_Menu'>
-          <% if request.fullpath == '/' %>
-            <%= link_to('ログアウト', session_path(id: cookies.signed[:user]['id']), class: 'Logout_Btn', method: :delete) %>
-          <% elsif request.fullpath == '/user/registrations/new' %>
-            <%= link_to('ログイン', sessions_path, class: 'Logout_Btn') %>
-          <% elsif request.fullpath == '/user/registrations' %>
-            <%= link_to('ログイン', user_registrations_destroy_path, class: 'Logout_Btn', method: :delete) %>
-          <% else %>
-            <%= link_to('番組選択へ戻る', root_path, class: 'Logout_Btn') %>
+          <% if @user.present? && request.fullpath.include?('/program_selects?') || request.fullpath.include?('/players') %>
+            <%= link_to('番組選択へ戻る', root_path, class: 'Header_Menu--Link') %>
+            <%= link_to('ログアウト', session_path(id: cookies.signed[:user]['id']), class: 'Header_Menu--Link', method: :delete) %>
+          <% elsif @user.present? && request.fullpath == '/' %>
+            <%= link_to('ログアウト', session_path(id: cookies.signed[:user]['id']), class: 'Header_Menu--Link', method: :delete) %>
+          <% elsif @user.blank? && request.fullpath == '/user/registrations/new' %>
+            <%= link_to('ログイン', sessions_path, class: 'Header_Menu--Link') %>
+          <% elsif @user.blank? && request.fullpath == '/user/registrations' %>
+            <%= link_to('ログイン', user_registrations_destroy_path, class: 'Header_Menu--Link', method: :delete) %>
           <% end %>
         </div>
       <% end %>
