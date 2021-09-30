@@ -13,7 +13,7 @@
       <div class='Program_Select__Date'>
         <%= link_to(Date.parse(program[:date]).strftime('%Y年 %m月 %d日 %A').sub(/Wednesday/, '水曜日'), players_path(program: 'JODV_FAV-FOUR', key: program[:key]), class: 'Program_Select__Date--Link') %>
         <% already = Program.readonly.find_by(s3_key: program[:key]) %>
-        <% if already.present? &&  %>
+        <% if already.present? && already.already_play == 1 %>
           <span class='Program_Select__Date--Badge'>再生済</span>
         <% end %>
       </div>
