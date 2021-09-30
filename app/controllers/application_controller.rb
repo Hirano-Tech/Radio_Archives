@@ -13,11 +13,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def aws_credential
+  def aws_s3_client
     Aws::S3::Client.new(
-      region: Rails.application.credentials.AWS_S3[:Region],
       access_key_id: Rails.application.credentials.AWS_S3[:Access_Key_ID],
-      secret_access_key: Rails.application.credentials.AWS_S3[:Secret_Access_Key]
+      secret_access_key: Rails.application.credentials.AWS_S3[:Secret_Access_Key],
+      region: Rails.application.credentials.AWS_S3[:Region]
+    )
+  end
+
+  def aws_s3_object(key)
+    Aws::S3::Object.new(
+      access_key_id: Rails.application.credentials.AWS_S3[:Access_Key_ID],
+      secret_access_key: Rails.application.credentials.AWS_S3[:Secret_Access_Key],
+      region: Rails.application.credentials.AWS_S3[:Region],
+      bucket_name: Rails.application.credentials.AWS_S3[:Bucket],
+      key: key
     )
   end
 end
