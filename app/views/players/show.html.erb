@@ -6,7 +6,7 @@
       ■ 放送日：<%= @date %>
     </p>
 
-    <%= audio_tag(@audio_url, onended: "location.href='/players?q=shuffle_play';", autoplay: false, controls: true) %>
+    <%= audio_tag(@audio_url, onended: "location.href='/players?play=shuffle_play&program=JOAV_MIX-MACHINE';", autoplay: true, controls: true) %>
     <%= link_to('次曲', players_path(program: 'JOAV_MIX-MACHINE', play: 'shuffle_play'), class: 'Radio_Player--Next_Btn') %>
 
   <% elsif params[:program] == 'JODV_FAV-FOUR' %>
