@@ -28,7 +28,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    cookies.delete(:already)
     cookies.delete(:user)
     redirect_to(sessions_path)
   end
