@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     delete('user/registrations/destroy', to: 'registrations#destroy')
 
   resources(:program_selects, only: :index)
-  resource(:players, only: [:show, :update])
+  resource(:players, only: [:show, :update, :destroy])
 
   # routes.rb で利用できる詳細については、https://guides.rubyonrails.org/routing.html をご覧ください。
 end

@@ -4,6 +4,8 @@
 
     <h1 class='Program_Select--Title'>② 再生方法を選択してください。</h1>
     <%= link_to('全曲 シャッフル再生', players_path(program: 'JOAV_MIX-MACHINE', play: 'shuffle_play'), class: 'Program_Select--Link') %>
+    <%= link_to('最新 1ヶ月放送分', players_path(program: 'JOAV_MIX-MACHINE', play: 'one_month'), class: 'Program_Select--Link') %>
+    <%= link_to('過去 3ヶ月放送分', players_path(program: 'JOAV_MIX-MACHINE', play: 'three_months'), class: 'Program_Select--Link') %>
 
   <% elsif params[:program] == 'JODV_FAV-FOUR' %>
     <%= image_tag('https://d1tr04ubbr03km.cloudfront.net/Images/JODV_FAV-FOUR.webp') %>

@@ -20,6 +20,9 @@
         <div class='Header_Menu'>
           <% if @user.present? && request.fullpath.include?('/program_selects?') || request.fullpath.include?('/players') %>
             <%= link_to('番組選択へ戻る', root_path, class: 'Header_Menu--Link') %>
+            <% if cookies.signed[:already].present? %>
+              <%= link_to('再生履歴を削除する', players_path, class: 'Header_Menu--Link', method: :delete) %>
+            <% end %>
             <%= link_to('ログアウト', session_path(id: cookies.signed[:user]['id']), class: 'Header_Menu--Link', method: :delete) %>
           <% elsif @user.present? && request.fullpath == '/' %>
             <%= link_to('ログアウト', session_path(id: cookies.signed[:user]['id']), class: 'Header_Menu--Link', method: :delete) %>
