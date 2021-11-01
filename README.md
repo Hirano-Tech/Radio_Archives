@@ -9,7 +9,7 @@
 
 - **Elastic Compute Cloud**
   - Region：アジア・パシフィック（ムンバイ）
-  - インスタンスタイプ：t4g.nano
+  - インスタンスタイプ：a1.medium
 
 - **Relational Database Service**
   - Region：米国西部（オレゴン）
@@ -21,7 +21,14 @@
 
 <img src='https://user-images.githubusercontent.com/63486456/134806674-eae890de-a3fb-4d35-a1db-fd9819ae964b.png' width='50%' />
 
-## 🗝　③ ユーザー管理（認証）機能
+## 🤔　③ 今後 実装したいこと…
+
+1. 現在は MP3（320 kbps）だが、FLAC（24 bits）での配信をできるようにする。
+2. 再生回数を記録できるようにする。
+3. Spotify，YouTube 等の API を使用して、オリジナルのメディアプレイヤーへと発展させる。
+4. 現在 a1.medium をスポットインスタンスで稼働しているため、T系インスタンスをロードバランサーを使用して稼働させたい。
+
+## 🗝　④ ユーザー管理（認証）機能
 
 ```Ruby
 # 入力されたメールアドレスから、アカウント部分とドメイン部分を切り分ける。
