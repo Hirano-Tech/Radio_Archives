@@ -27,7 +27,7 @@ gem 'aws-sdk-s3', '~> 1.102'
   # https://rubygems.org/gems/aws-sdk-s3 | RubyGems
   # Simple Storage Service のための Amazon Web Services Official Ruby Gems です。
 
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.6'
   # https://rubygems.org/gems/puma | RubyGems
   # Ruby アプリケーションのために開発環境と本番環境で使用できる Web サーバ
 
